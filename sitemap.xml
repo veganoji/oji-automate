@@ -8,6 +8,188 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/"/>
     <changefreq>monthly</changefreq>
   </url>
-  <url><loc>https://automate.ojidigital.com/ja/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://automate.ojidigital.com/fr/</loc><changefreq>monthly</changefreq></url>
+  <url>
+    <loc>https://automate.ojidigital.com/ja/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/fr/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/what-to-automate-small-business</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/what-to-automate-small-business"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/what-to-automate-small-business"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/what-to-automate-small-business"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/what-to-automate-small-business"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/what-to-automate-small-business</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/what-to-automate-small-business</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/signs-team-drowning-repetitive-work</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/signs-team-drowning-repetitive-work"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/signs-team-drowning-repetitive-work"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/signs-team-drowning-repetitive-work"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/signs-team-drowning-repetitive-work"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/signs-team-drowning-repetitive-work</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/signs-team-drowning-repetitive-work</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/automation-roi</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/automation-roi"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/automation-roi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/automation-roi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/automation-roi"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/automation-roi</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/automation-roi</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ai-email-management</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/ai-email-management"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/ai-email-management"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/ai-email-management"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/ai-email-management"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/ai-email-management</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/ai-email-management</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/automate-invoicing-accounts-payable</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/automate-invoicing-accounts-payable"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/automate-invoicing-accounts-payable"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/automate-invoicing-accounts-payable"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/automate-invoicing-accounts-payable"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/automate-invoicing-accounts-payable</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/automate-invoicing-accounts-payable</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/build-vs-buy-vs-automate</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/build-vs-buy-vs-automate"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/build-vs-buy-vs-automate"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/build-vs-buy-vs-automate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/build-vs-buy-vs-automate"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/build-vs-buy-vs-automate</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/build-vs-buy-vs-automate</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/n8n-vs-zapier-vs-make</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/n8n-vs-zapier-vs-make"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/n8n-vs-zapier-vs-make"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/n8n-vs-zapier-vs-make"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/n8n-vs-zapier-vs-make"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/n8n-vs-zapier-vs-make</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/n8n-vs-zapier-vs-make</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/docusign-alternative-self-hosted</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/docusign-alternative-self-hosted"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/docusign-alternative-self-hosted"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/docusign-alternative-self-hosted"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/docusign-alternative-self-hosted"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/docusign-alternative-self-hosted</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/docusign-alternative-self-hosted</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ai-automation-japanese-business</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/ai-automation-japanese-business"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/ai-automation-japanese-business"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/ai-automation-japanese-business"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/ai-automation-japanese-business"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/ai-automation-japanese-business</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/ai-automation-japanese-business</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/automation-roadmap-smb</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://automate.ojidigital.com/blog/automation-roadmap-smb"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://automate.ojidigital.com/blog/ja/automation-roadmap-smb"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://automate.ojidigital.com/blog/fr/automation-roadmap-smb"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://automate.ojidigital.com/blog/automation-roadmap-smb"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/ja/automation-roadmap-smb</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://automate.ojidigital.com/blog/fr/automation-roadmap-smb</loc>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>

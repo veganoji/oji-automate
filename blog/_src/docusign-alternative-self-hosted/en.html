@@ -1,0 +1,77 @@
+<p>Every year the invoice arrives, and every year it's bigger. Per-seat licences for people who sign three documents a month. Per-envelope overage charges when a busy quarter pushes you past your plan. A price that has nothing to do with what the software actually does for you, and everything to do with how locked in you are. If that sounds familiar, you've already started looking for a <strong>DocuSign alternative</strong> — and the honest answer might surprise you.</p>
+
+<p>We were that customer. So we did what we now do for clients: instead of renting an e-signature product forever, we built our own. A self-hosted flow — send a document, the other party signs it in their browser, and a tamper-evident sealed PDF with an audit certificate is generated and emailed automatically. Same job as DocuSign, branded to us, with no per-seat fees. This is the story of why, how, and when to consider the same.</p>
+
+<h2>The real problem isn't the price — it's the model</h2>
+
+<p>It's tempting to frame this as "DocuSign is expensive." Sometimes it is, but that's not the core issue. The issue is the <strong>model</strong>: you rent software that sits at the centre of how your business gets paid and how your contracts get signed, and you pay for it forever, on terms the vendor sets and changes.</p>
+
+<p>That shows up in three ways. <strong>Per-seat pricing</strong> punishes you for adding people, even occasional signers. <strong>Per-envelope limits</strong> turn a good month into an overage bill. And <strong>lock-in</strong> means the workflow lives in someone else's product — your templates, your branding, your audit history — so the switching cost climbs every year you stay. None of that is unique to one vendor; it's how subscription software works.</p>
+
+<p>For a long time, renting was the only sensible choice. Building software was slow and costly, so paying a monthly fee for someone else's was simply cheaper. That trade-off has flipped, and e-signature is one of the clearest examples of why.</p>
+
+<h2>What you actually need from e-signature</h2>
+
+<p>Strip away the dashboards and the upsells, and a signing tool has to do a small number of things well. Knowing this list is what makes the build-versus-buy question answerable, because it's shorter than the feature grids suggest.</p>
+
+<ul>
+<li><strong>Collect a signature.</strong> Send a document to one or more people and let them sign it from any device, in a browser, without installing anything.</li>
+<li><strong>Capture identity and intent.</strong> Record who signed, that they meant to, and the basics around it — name, email, a timestamp, the IP address, and an explicit act of agreement.</li>
+<li><strong>Produce a tamper-evident record.</strong> Lock the signed document so any later change is detectable, and bind the signature to that exact file.</li>
+<li><strong>Keep an audit trail.</strong> A clear, exportable record of the whole event — who, what, when — that you can produce if anyone ever questions the document.</li>
+<li><strong>Deliver and store it.</strong> Get the finished file to both parties and into your records automatically, not by hand.</li>
+</ul>
+
+<p>That's the whole job. Everything else a big platform sells — bulk sending, advanced templates, CRM connectors, signer routing — is convenience layered on top. Useful at scale, but not the thing you're paying for when a customer signs an agreement.</p>
+
+<h2>Build versus buy, for e-signature specifically</h2>
+
+<p>We're not absolutists about this. We've written before that the answer is usually "it depends," and e-signature is no exception. But it lands on the build side more often than people expect, for one reason: the core requirements above are well-understood, and modern tooling makes them cheap to assemble.</p>
+
+<p>A few years ago, building tamper-evident signing in-house would have been a real project — weeks of work, real risk. Today the cryptography is a standard library, browser-based signing is a solved interface, sealing a PDF is a known recipe, and email and storage are a webhook away. AI and modern frameworks compress what used to take a team a month into something a small team can stand up quickly and maintain cheaply.</p>
+
+<blockquote>The question has quietly changed. It's no longer "can we afford to build this?" — it's "can we afford to keep renting something this ownable?" For a workflow you'll run for years, owning it usually wins.</blockquote>
+
+<p>When you build it, the workflow becomes yours. It carries your branding, lives inside your document process instead of beside it, and adds no marginal cost when you sign your hundredth or thousandth agreement. That's the post-SaaS shift in miniature: not "never buy software," but "stop renting the parts you can own."</p>
+
+<h2>How our self-hosted flow works</h2>
+
+<p>Here's the actual system we built and now run — and the same shape we build for clients. It's deliberately simple, because simple is what stays reliable and cheap to own.</p>
+
+<ol>
+<li><strong>Send.</strong> You upload or generate the document and enter the signer's details. They get an email with a secure, single-purpose link — no account, no app to install.</li>
+<li><strong>Sign in the browser.</strong> The signer opens the link, reviews the document, and signs directly on the page from a laptop or phone. The act of signing is explicit and recorded.</li>
+<li><strong>Seal with SHA-256.</strong> The moment they sign, the system locks the file and generates a <strong>tamper-evident sealed PDF</strong>. A SHA-256 hash of the document acts as a digital fingerprint: change a single character later and the hash no longer matches, so any tampering is detectable.</li>
+<li><strong>Attach an audit certificate.</strong> Alongside the signed PDF, the flow produces an audit certificate recording the signer's name and email, timestamps, IP address, and the document hash — the evidence trail that proves what was signed and by whom.</li>
+<li><strong>Auto-email and store.</strong> Both parties receive the final sealed PDF and certificate automatically, and a copy lands in your storage. No one re-keys anything; no one chases a file.</li>
+</ol>
+
+<p>That is the same workflow you're paying a per-seat subscription for — send, sign, sealed PDF, audit trail, delivered — running on infrastructure you control. And because it's yours, it slots straight into the rest of your document handling: the contract that generates the signing request can flow from the same system that later invoices against it.</p>
+
+<h2>The cost picture over time</h2>
+
+<p>A subscription and an owned tool have different shapes, and the shapes are the whole point. A SaaS plan is a flat line that never ends and tends to drift upward — more seats, a price rise, an overage. A built tool is a one-time build cost plus modest running costs: hosting and email that, for this kind of flow, are small.</p>
+
+<p>The two lines cross. Early on, renting looks cheaper because there's no upfront spend. But the subscription keeps charging every month, forever, while the owned tool's costs flatten near zero once it's built. Past the crossover — often inside a year or two for a team with real signing volume — owning is simply cheaper, and the gap widens every year.</p>
+
+<p>The figures depend on your seat count, your envelope volume, and what you'd spend to build, so we won't pretend a single number fits everyone. What's reliable is the shape: a recurring per-seat fee versus a mostly-paid-off asset. If you want the real comparison for your situation, that's exactly what a <a href="/#contact">free automation audit</a> works out with you — your volumes, your costs, an honest break-even.</p>
+
+<h2>A note on legal validity</h2>
+
+<p>This is general information, not legal advice, and you should confirm the specifics for your jurisdiction and document types before relying on any signing process. The legal validity of electronic signatures varies by country, and some high-stakes documents carry extra requirements.</p>
+
+<p>The broad picture, though, is settled in most major markets. In the European Union, the <strong>eIDAS regulation</strong> establishes a legal framework for electronic signatures and recognises them, with tiers from a basic electronic signature up to a qualified electronic signature. In the United States, the federal <strong>ESIGN Act</strong> (alongside UETA at the state level) gives electronic signatures the same legal standing as handwritten ones for most transactions. <strong>Japan</strong> recognises electronic signatures as well, under its Electronic Signatures Act, with conditions around establishing the signer's identity and intent.</p>
+
+<p>What this means in practice: for the everyday agreements most businesses run — service contracts, NDAs, statements of work, order forms — a well-built flow that captures identity, intent, and a tamper-evident record is on solid ground in these jurisdictions. The reason we keep an audit certificate and a SHA-256 seal is precisely to evidence those elements. Where requirements are stricter — certain regulated, notarised, or qualified-signature scenarios — you'll want to check the rules, and that's where the next section comes in.</p>
+
+<h2>When DocuSign or Adobe still make sense</h2>
+
+<p>We build these flows, and we'll still tell you when not to. Owning your signing isn't the right call for everyone, and pretending otherwise would be the kind of hype we try to avoid.</p>
+
+<p>The big platforms earn their fee in a few situations. If you need <strong>qualified electronic signatures</strong> under eIDAS — the highest assurance tier, backed by certified trust service providers — that's a regulated capability you buy, not something to build casually. If you operate in <strong>heavily regulated industries</strong> with specific compliance and certification demands, an established vendor's audited infrastructure can be worth the price for that assurance alone. And if you genuinely need the <strong>full enterprise apparatus</strong> — thousands of signers, deep CRM and ERP integrations, complex multi-party routing — a mature platform may simply be the faster path.</p>
+
+<p>The dividing line is straightforward. If you need certified qualified signatures or enterprise-scale machinery, buy it. If you're running a steady stream of standard agreements and paying per seat for the privilege, that's the case where owning a branded, integrated flow almost always wins.</p>
+
+<p>One last timing point is worth saying plainly. The reason building this is suddenly sensible — cheap cryptography, solved interfaces, AI-accelerated development — is available to your competitors too, and most haven't acted on it yet. That gap is the opportunity. The businesses that move while owning is still novel don't just trim a subscription; they take a workflow at the heart of getting paid and make it theirs — branded, integrated, free of per-signature drag — and reinvest the savings into the next improvement. That lead compounds, and the teams that wait will buy the same realisation later, from a worse position.</p>
+
+<p>You don't have to start with e-signature. But it's an unusually clean place to begin, because the requirements are clear, the build is cheap, and the recurring bill you'd replace is sitting right there in your accounts. If you're tired of paying per seat to sign your own contracts, <a href="/#contact">tell us about your current setup</a> and we'll show you what owning it would look like — the workflow, the rough cost, and an honest take on whether it's worth it for you. No obligation, and you keep the plan either way.</p>

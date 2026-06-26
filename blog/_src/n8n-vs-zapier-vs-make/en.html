@@ -1,0 +1,72 @@
+<p>If you've started looking at automation seriously, you've run into the same three names everyone else has: Zapier, Make, and n8n. They all promise the same outcome — connect your apps, stop doing things by hand — but they get there in very different ways, and the right choice depends on what you're actually trying to do. This is our honest take on <strong>n8n vs Zapier vs Make</strong>: what each one is genuinely good at, where each falls down, and how we'd help you decide.</p>
+
+<p>We build automation for a living, and we build most of it on n8n. We'll be upfront about that bias — but we use all three, we recommend Zapier and Make often, and the point of this piece is to help you pick the tool that fits your situation, not to talk you into ours. None of them is "best" in the abstract. They're built for different jobs.</p>
+
+<h2>The 30-second version</h2>
+
+<p>Here's the short answer before the detail. <strong>Zapier</strong> is the easiest to start with and connects to nearly everything, but its pricing climbs as your volume grows. <strong>Make</strong> gives you more power and better value for complicated, multi-step workflows, with a visual canvas that's genuinely pleasant to build on. <strong>n8n</strong> is open-source and can be self-hosted, which means you own the automation layer outright — your data, your branding, no per-task meter running — and it's the strongest of the three for anything complex, AI-heavy, or privacy-sensitive.</p>
+
+<table>
+  <thead>
+    <tr><th>&nbsp;</th><th>Zapier</th><th>Make</th><th>n8n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Ease of use</strong></td><td>Easiest</td><td>Moderate</td><td>Steeper, but flexible</td></tr>
+    <tr><td><strong>Power / flexibility</strong></td><td>Linear, simple</td><td>Strong branching</td><td>Highest (+ real code)</td></tr>
+    <tr><td><strong>App library</strong></td><td>Largest (8,000+)</td><td>Very large</td><td>Large + custom HTTP</td></tr>
+    <tr><td><strong>Pricing model</strong></td><td>Per task; scales up</td><td>Per operation; better value</td><td>Free self-hosted / flat cloud</td></tr>
+    <tr><td><strong>Data ownership</strong></td><td>Vendor cloud</td><td>Vendor cloud</td><td>You own it (self-host)</td></tr>
+    <tr><td><strong>AI capability</strong></td><td>Growing</td><td>Good</td><td>Excellent (agents, any model)</td></tr>
+    <tr><td><strong>Best for</strong></td><td>Quick, simple links</td><td>Complex visual flows</td><td>Complex + private + AI</td></tr>
+  </tbody>
+</table>
+
+<h2>Zapier: the easiest place to start</h2>
+
+<p>Zapier earned its reputation honestly. If you want to connect two popular apps so that "when this happens, do that" — a new form submission creates a CRM contact, a paid invoice posts to Slack — Zapier is the fastest way to get there. The interface is built for non-technical people, the setup is genuinely a few clicks, and its app library is the largest in the category, with thousands of integrations covering tools most competitors haven't touched.</p>
+
+<p>The trade-offs are real, though. Zapier's "Zaps" are mostly linear: step one, step two, step three. You can add filters and paths, but anything with serious branching, loops, or data-wrangling gets awkward fast. The bigger consideration is pricing. Zapier charges by <strong>tasks</strong> — roughly, each action it performs — so a workflow that runs thousands of times a month can get expensive in a way that surprises people. For low-volume, simple automations it's excellent value. For high-volume or complex ones, the meter adds up.</p>
+
+<p>Our honest recommendation: if you're new to automation, or you just need a handful of simple connections, start with Zapier. It will teach you how this all works with the least friction, and for many businesses a few well-chosen Zaps are genuinely all they need.</p>
+
+<h2>Make: more power, better value for complexity</h2>
+
+<p>Make (formerly Integromat) sits in the middle, and for a lot of teams it's the sweet spot. Instead of a list of steps, you build on a visual canvas — modules wired together with lines — and you can <em>see</em> your whole workflow at a glance. That visual model makes complex logic far more manageable: branching, iterating over lists, merging data from several sources, error handling. Things that feel like fighting the tool in Zapier feel natural in Make.</p>
+
+<p>It's also better value at volume. Make prices by <strong>operations</strong>, and you typically get far more of them per dollar than Zapier's task model gives you, which matters once your automations run frequently. The trade-off is a slightly steeper learning curve — there's more to understand because there's more you can do — but it's very approachable, and the payoff is real once your scenarios get past the simple "A triggers B" stage.</p>
+
+<p>We reach for Make when a client needs genuinely complex logic but doesn't want or need to self-host. It's a strong, fair-value tool, and we recommend it without hesitation for the right job.</p>
+
+<h2>n8n: you own the automation layer</h2>
+
+<p>n8n is the one we build on most, and the reason is ownership. n8n is <strong>open-source and self-hostable</strong> — you can run it on your own server — which changes the entire equation. Your data never leaves infrastructure you control, there's no per-task meter ticking in the background, and the tool becomes a permanent asset of your business rather than a subscription you rent forever. You can put your own branding on it. You can extend it with custom code whenever a node doesn't quite do what you need. That combination — visual where you want it, code where you need it — is what makes it so capable.</p>
+
+<p>This is the part worth dwelling on, because it's where things are genuinely shifting. For the last decade, the default answer to any business problem was "there's a SaaS for that" — and you ended up renting a dozen tools, each with its own login, its own monthly fee, and your data scattered across a dozen vendors' clouds. Self-hosting your automation layer is a quiet move in the other direction. You stop renting the plumbing of your business and start owning it. No vendor can change the pricing, sunset the product, or hold your workflows hostage. That's the <strong>post-SaaS</strong> direction, and it's becoming practical for ordinary businesses for the first time.</p>
+
+<p>n8n isn't the easiest to start with — self-hosting means there's infrastructure to set up and maintain, and the editor rewards a little technical comfort. That's the honest cost. But for anything complex, anything that touches sensitive data, or anything AI-heavy, it's our default — and the setup is exactly the kind of thing we handle for clients so the technical barrier never lands on you. If you're weighing whether your use case justifies it, a <a href="/#contact">free automation audit</a> is the fastest way to find out.</p>
+
+<h2>Where AI changes the picture</h2>
+
+<p>All three tools now have AI features, but this is where the gap is widening fastest. You can add an AI step to a Zapier or Make workflow — call a model, summarize an email, classify a message — and for many tasks that's plenty. Make's AI support in particular is solid.</p>
+
+<p>n8n goes further. It has first-class support for <strong>AI agents</strong> — workflows where a model can reason, choose between tools, and take multi-step actions rather than just answering once — and because you control the environment, you can plug in any model, including ones running privately so sensitive data never goes to a third party. For the AI-heavy automations more and more businesses now want — intelligent routing, drafting replies in your voice, agents that read a request and act on it — that flexibility is decisive.</p>
+
+<p>There's a second, quieter effect of AI worth naming. The thing that always made custom-built automation expensive was the engineering time. AI has collapsed that cost. Builds that would have meant weeks of developer work now take days, which is precisely why owning your automation layer — once a luxury reserved for big companies — is suddenly within reach for a small business. The economics that ruled out custom for the last decade have flipped.</p>
+
+<h2>What automation actually buys you</h2>
+
+<p>It's easy to get lost comparing features and forget what the tool is for. The goal isn't automation for its own sake — it's getting hours back. Every workflow you build takes a chunk of repetitive clicking off your team's plate and hands it to a machine that does it instantly, every time, without getting bored or making typos.</p>
+
+<p>Our rule of thumb is simple: <strong>if you or your team repeat the same clicks in the same order, it can almost certainly be automated.</strong> Copy from one app, paste into another, format, send — that exact sequence, done daily, is a candidate no matter which of these three tools you end up using. The hours you reclaim don't vanish; they go back into the work only a human can do — judgment, relationships, the actual thinking. That's the real return, and it's the same whether you choose Zapier, Make, or n8n.</p>
+
+<h2>Why moving now matters</h2>
+
+<p>There's a timing argument we'll make plainly, because it's true. The tools that make all of this affordable — especially AI-assisted custom builds on something you own — are new, and most of your competitors haven't moved yet. That won't stay the case for long.</p>
+
+<p>The businesses that start automating now spend the next year quietly getting faster and leaner while everyone around them is still copy-pasting between tabs. That lead compounds: every reclaimed hour funds the next improvement, and the gap widens month over month. Being early, while AI is still novel and adoption is uneven, is a genuine advantage — and it's the kind of advantage that's hard to catch up to once it's built. The window is open now; it won't be this wide forever.</p>
+
+<h2>Our take: start simple, own the complex</h2>
+
+<p>So which one fits you? Here's how we'd actually advise it. If you're getting started or your needs are simple, <strong>begin with Zapier</strong> — lowest friction, fastest payoff. If your workflows are complex but you'd rather not run your own infrastructure, <strong>Make</strong> gives you serious power at fair value. And for anything genuinely complex, privacy-sensitive, or AI-heavy — where you want to own the system, your data, and the roadmap — <strong>self-hosted n8n with a bit of custom code wins</strong>, and that's the direction the smart money is heading.</p>
+
+<p>That's also, honestly, why we build on n8n: it lets us hand a client a real asset instead of one more subscription. But the right tool is the one that fits your situation, and sometimes that's Zapier or Make — we'll tell you so. If you'd like a clear, no-pressure read on which path makes sense for your business, <a href="/#contact">book a free automation audit</a>. We'll look at how work actually flows through your operation and tell you honestly what's worth doing, and on which tool.</p>
