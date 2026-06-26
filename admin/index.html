@@ -14,16 +14,32 @@
  .row:hover{background:#fff}
  .chip{font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid rgba(26,32,66,.15);cursor:pointer}
  .chip.on{background:#1a2042;color:#fff;border-color:#1a2042}
+ .fld{width:100%;border:1px solid #d9d6dd;border-radius:11px;padding:12px 14px;font-size:15px;outline:none}
+ .fld:focus{border-color:#1a2042;box-shadow:0 0 0 3px rgba(26,32,66,.12)}
 </style>
 </head>
 <body>
+
+<div id="login" style="position:fixed;inset:0;z-index:50;background:linear-gradient(135deg,#1a2042,#2a3160 60%,#3a2050);display:none;align-items:center;justify-content:center;padding:20px">
+ <div style="background:#fff;border-radius:18px;padding:36px 32px;max-width:360px;width:100%;box-shadow:0 24px 60px -20px rgba(0,0,0,.55)">
+   <div class="font-extrabold text-xl">OJI<span class="text-red">.</span> DIGITAL</div>
+   <div class="text-muted text-sm mb-6">Leads — sign in</div>
+   <form onsubmit="return signIn(event)">
+     <input id="pw" type="password" class="fld" placeholder="Password" autocomplete="current-password">
+     <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#6b7088;margin:12px 2px 4px"><input type="checkbox" id="remember" checked> Keep me signed in on this device</label>
+     <button type="submit" style="width:100%;background:#dc1915;color:#fff;font-weight:700;border:none;border-radius:11px;padding:12px;font-size:15px;cursor:pointer;margin-top:8px">Sign in</button>
+     <p id="loginerr" style="color:#dc1915;font-size:13px;margin-top:10px;display:none">Wrong password — try again.</p>
+   </form>
+ </div>
+</div>
+
 <header class="sticky top-0 z-20 bg-paper/90 backdrop-blur border-b border-navy/10">
  <div class="max-w-6xl mx-auto px-5 h-[60px] flex items-center justify-between gap-3">
    <div class="flex items-center gap-2"><span class="font-extrabold text-lg">OJI<span class="text-red">.</span> DIGITAL</span><span class="text-muted text-sm">· Leads</span></div>
    <div class="flex items-center gap-3 text-sm">
      <span id="count" class="text-muted"></span>
      <button onclick="load()" class="chip">↻ Refresh</button>
-     <button onclick="resetKey()" class="chip">Key</button>
+     <button onclick="signOut()" class="chip">Sign out</button>
      <a href="https://alexderyczs-team.monday.com/boards/18419481035" target="_blank" class="chip on">Open Monday →</a>
    </div>
  </div>
@@ -45,23 +61,25 @@
 const WEBHOOK="https://ojidigital.app.n8n.cloud/webhook/automate-leads";
 const SC={New:'#2563eb',Contacted:'#1f9d76',Quoted:'#c98a14',Won:'#16a34a',Lost:'#9aa0b0',Spam:'#dc1915'};
 let ALL=[], filter='all';
-function getKey(){ let k=localStorage.getItem('oji_leads_key'); if(!k){ k=prompt('Access key (from ~/.config/oji-keys/invoice-approve-secret):')||''; if(k) localStorage.setItem('oji_leads_key',k.trim()); } return (k||'').trim(); }
-function resetKey(){ localStorage.removeItem('oji_leads_key'); load(); }
+function getKey(){ try{ return (localStorage.getItem('oji_leads_key')||sessionStorage.getItem('oji_leads_key')||'').trim(); }catch(e){ return ''; } }
+function showLogin(err){ document.getElementById('login').style.display='flex'; document.getElementById('loginerr').style.display=err?'block':'none'; const pw=document.getElementById('pw'); if(pw){ pw.value=''; pw.focus(); } }
+function signIn(e){ e.preventDefault(); const k=document.getElementById('pw').value.trim(); if(!k) return false; try{ localStorage.removeItem('oji_leads_key'); sessionStorage.removeItem('oji_leads_key'); (document.getElementById('remember').checked?localStorage:sessionStorage).setItem('oji_leads_key',k); }catch(e2){} document.getElementById('login').style.display='none'; load(); return false; }
+function signOut(){ try{ localStorage.removeItem('oji_leads_key'); sessionStorage.removeItem('oji_leads_key'); }catch(e){} ALL=[]; document.getElementById('list').innerHTML=''; document.getElementById('count').textContent=''; showLogin(false); }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function fmt(d){ if(!d) return ''; const t=new Date(d); if(isNaN(t)) return ''; return t.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+t.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }
 async function load(){
-  const key=getKey(); const st=document.getElementById('state');
-  st.style.display='block'; st.textContent='Loading…'; document.getElementById('list').innerHTML='';
+  const key=getKey(); if(!key){ showLogin(false); return; }
+  const st=document.getElementById('state'); st.style.display='block'; st.textContent='Loading…'; document.getElementById('list').innerHTML='';
   try{
     const r=await fetch(WEBHOOK+'?token='+encodeURIComponent(key)+'&cb='+Date.now());
     const d=await r.json();
     if(!d||!d.leads) throw new Error('bad');
     ALL=d.leads.sort((a,b)=>(b.created||'').localeCompare(a.created||''));
     render();
-  }catch(e){ st.textContent=''; st.innerHTML='Couldn’t load leads — your access key may be wrong. <button onclick="resetKey()" class="chip" style="margin-left:8px">Re-enter key</button>'; }
+  }catch(e){ showLogin(true); }
 }
 function render(){
-  const st=document.getElementById('state'); st.style.display='none';
+  document.getElementById('state').style.display='none';
   const statuses=['all',...Object.keys(SC)];
   document.getElementById('filters').innerHTML=statuses.map(s=>`<span class="chip ${filter===s?'on':''}" onclick="filter='${s}';render()">${s==='all'?'All':s}</span>`).join('');
   const rows=ALL.filter(l=>filter==='all'||l.status===filter);
