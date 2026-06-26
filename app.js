@@ -25,6 +25,15 @@ const C = {
   procEyebrow: "How it works", procH: "Simple, low-risk, and you own the result.",
   proc: [["1", "Free automation audit", "A short call to find the one or two processes where automation pays back the fastest. You leave with a plan even if we don't work together."], ["2", "Design & build", "We build it — AI, automation tooling and any custom code — and wire it into the stack you already have."], ["3", "Handover & run", "It runs quietly in the background. You own it. Optional ongoing support if you want it."]],
   pricing: "Fixed-price projects or a monthly retainer. Most first projects pay for themselves within weeks.",
+  navprice: "Pricing", popular: "Most popular",
+  priceEyebrow: "Pricing", priceH: "Simple, transparent pricing.",
+  priceSub: "Start with a free audit. Most first projects are fixed-price and pay for themselves within weeks.",
+  tiers: [
+   { n: "Automation audit", p: "Free", per: "", d: "A focused call to find your highest-payback process. You leave with a plan — even if we never work together.", f: ["~45-minute call", "Process & tools review", "Prioritised opportunities", "Rough ROI estimate"], cta: "Book the audit", hot: false },
+   { n: "Fixed-price build", p: "from $1,500", per: "one-off", d: "We design, build and hand over one automation, wired into your existing tools. You own it.", f: ["One process automated end-to-end", "AI + automation + custom code", "Wired into your stack", "Yours to keep — no lock-in", "30 days of support"], cta: "Start a project", hot: true },
+   { n: "Automation retainer", p: "from $1,000", per: "/month", d: "Ongoing — we keep finding, building and running automations across your business, month after month.", f: ["Multiple processes over time", "Priority build queue", "Monitoring & maintenance", "Monthly review call", "Cancel anytime"], cta: "Talk to us", hot: false }
+  ],
+  priceNote: "Indicative starting prices in USD — every project is quoted after the free audit, in your currency. Bigger or unusual? Custom &amp; enterprise work is welcome — let's talk.",
   whoEyebrow: "Why us", whoH: "A studio that ships — not a slide deck.",
   who: ["We run a live AI SaaS and a dozen production automations.", "Full-stack: the AI, the automation (n8n / APIs), and the web app around it.", "We work in English, 日本語 and Français — across your market and ours.", "Tokyo-based; remote worldwide."],
   finalH: "Tell us your most annoying repetitive task.",
@@ -59,6 +68,15 @@ const C = {
   procEyebrow: "進め方", procH: "シンプル・低リスク・成果は御社のもの。",
   proc: [["1", "無料の自動化診断", "短いお打ち合わせで、最も早く投資回収できる業務を1〜2件特定。ご一緒しない場合でも、計画はお持ち帰りいただけます。"], ["2", "設計・構築", "AI・自動化ツール・必要なコードを実装し、既存の仕組みに組み込みます。"], ["3", "引き渡し・運用", "裏側で静かに稼働。所有権は御社に。希望に応じて継続サポートも。"]],
   pricing: "固定料金のプロジェクト、または月額顧問。多くの初回案件は数週間で元が取れます。",
+  navprice: "料金", popular: "人気",
+  priceEyebrow: "料金", priceH: "シンプルで分かりやすい料金。",
+  priceSub: "まずは無料診断から。多くの初回案件は固定料金で、数週間で元が取れます。",
+  tiers: [
+   { n: "自動化診断", p: "無料", per: "", d: "最も投資回収の早い業務を見つける打ち合わせ。ご一緒しない場合でも、計画はお持ち帰りいただけます。", f: ["約45分の打ち合わせ", "業務・ツールの確認", "優先すべき機会の整理", "概算ROIの試算"], cta: "診断を予約する", hot: false },
+   { n: "固定料金プラン", p: "¥200,000〜", per: "買い切り", d: "1つの業務を設計・構築し、既存ツールに組み込んでお渡しします。所有権は御社に。", f: ["1業務をまるごと自動化", "AI＋自動化＋必要なコード", "既存の仕組みに統合", "御社の資産（ロックインなし）", "30日間サポート"], cta: "相談をはじめる", hot: true },
+   { n: "顧問プラン（月額）", p: "¥150,000〜", per: "/月", d: "継続的に、御社全体の自動化を見つけ・構築し・運用し続けます。", f: ["複数業務を順次自動化", "優先対応", "監視・保守", "毎月のレビュー", "いつでも解約可"], cta: "問い合わせる", hot: false }
+  ],
+  priceNote: "表示は目安の開始価格です。実際の料金は無料診断後に、御社の通貨で個別にお見積もりします。大規模・特殊なご要望も歓迎です。",
   whoEyebrow: "選ばれる理由", whoH: "資料ではなく、実際に作って届けるスタジオです。",
   who: ["稼働中のAI SaaSと、十数件の本番自動化を運用しています。", "フルスタック：AI、自動化（n8n／API）、その上のWebアプリまで。", "English・日本語・Français で対応。御社の市場でも、海外でも。", "東京拠点・世界どこでもリモート対応。"],
   finalH: "いちばん面倒な「繰り返し作業」を教えてください。",
@@ -93,6 +111,15 @@ const C = {
   procEyebrow: "Comment ça marche", procH: "Simple, peu risqué, et le résultat vous appartient.",
   proc: [["1", "Audit d'automatisation gratuit", "Un court échange pour repérer les 1 à 2 processus au retour sur investissement le plus rapide. Vous repartez avec un plan, même sans collaboration."], ["2", "Conception & développement", "Nous construisons le tout — IA, outils d'automatisation, code sur mesure — et l'intégrons à vos systèmes existants."], ["3", "Remise & exploitation", "Ça tourne en arrière-plan. C'est à vous. Support continu en option."]],
   pricing: "Projets au forfait ou forfait mensuel. La plupart des premiers projets sont rentabilisés en quelques semaines.",
+  navprice: "Tarifs", popular: "Le plus choisi",
+  priceEyebrow: "Tarifs", priceH: "Une tarification simple et transparente.",
+  priceSub: "Commencez par un audit gratuit. La plupart des premiers projets sont au forfait et se rentabilisent en quelques semaines.",
+  tiers: [
+   { n: "Audit d'automatisation", p: "Gratuit", per: "", d: "Un échange ciblé pour trouver votre processus au meilleur retour. Vous repartez avec un plan — même sans collaboration.", f: ["Appel d'environ 45 min", "Revue des processus & outils", "Opportunités priorisées", "Estimation de ROI"], cta: "Réserver l'audit", hot: false },
+   { n: "Projet au forfait", p: "dès 1 400 €", per: "unique", d: "Nous concevons, développons et livrons une automatisation, intégrée à vos outils. Elle vous appartient.", f: ["Un processus automatisé de bout en bout", "IA + automatisation + code sur mesure", "Intégré à vos outils", "À vous, sans verrouillage", "30 jours de support"], cta: "Démarrer un projet", hot: true },
+   { n: "Forfait mensuel", p: "dès 900 €", per: "/mois", d: "En continu — nous trouvons, construisons et exploitons des automatisations, mois après mois.", f: ["Plusieurs processus dans le temps", "File de production prioritaire", "Supervision & maintenance", "Point mensuel", "Sans engagement"], cta: "Échanger", hot: false }
+  ],
+  priceNote: "Prix de départ indicatifs en euros — chaque projet est chiffré après l'audit gratuit. Projets plus ambitieux ou atypiques : parlons-en.",
   whoEyebrow: "Pourquoi nous", whoH: "Un studio qui livre — pas un slide.",
   who: ["Nous exploitons un SaaS IA en production et une dizaine d'automatisations.", "Full-stack : l'IA, l'automatisation (n8n / API) et l'application web autour.", "Nous travaillons en English, 日本語 et Français — sur votre marché comme sur le nôtre.", "Basés à Tokyo ; à distance dans le monde entier."],
   finalH: "Dites-nous votre tâche répétitive la plus pénible.",
@@ -182,6 +209,24 @@ function render(t) {
    <p class="text-center text-sm text-navy/70 mt-8 font-medium">${t.pricing}</p>
  </section>
 
+ <section id="pricing" class="bg-navy-50/60 border-y border-navy/5 scroll-mt-20">
+  <div class="max-w-6xl mx-auto px-5 py-16 sm:py-20">
+   ${sec(t.priceEyebrow, t.priceH)}
+   <p class="text-center text-muted max-w-2xl mx-auto -mt-6 mb-10 leading-relaxed">${t.priceSub}</p>
+   <div class="grid md:grid-cols-3 gap-5 items-start max-w-5xl mx-auto">
+     ${t.tiers.map(tr => `<div class="card p-6 relative${tr.hot ? ' ring-2 ring-red' : ''}">
+       ${tr.hot ? `<div class="text-[11px] font-extrabold uppercase tracking-wider text-red mb-2">${t.popular}</div>` : ''}
+       <h3 class="text-lg font-extrabold text-navy">${tr.n}</h3>
+       <div class="mt-2 mb-2"><span class="text-3xl font-extrabold text-navy">${tr.p}</span> <span class="text-sm text-muted">${tr.per}</span></div>
+       <p class="text-sm text-muted leading-relaxed mb-5">${tr.d}</p>
+       <ul class="space-y-2 mb-6">${tr.f.map(f => `<li class="flex gap-2 text-sm text-navy/85"><svg class="ico shrink-0" style="width:18px;height:18px;stroke:#1f9d76" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.3 2.3 4.7-4.8"/></svg><span>${f}</span></li>`).join('')}</ul>
+       <a class="btn ${tr.hot ? 'btn-red' : 'btn-ghost'} w-full justify-center contact">${tr.cta} →</a>
+     </div>`).join('')}
+   </div>
+   <p class="text-center text-xs text-muted mt-8 max-w-2xl mx-auto leading-relaxed">${t.priceNote}</p>
+  </div>
+ </section>
+
  <section id="contact" class="max-w-6xl mx-auto px-5 py-16 sm:py-20 scroll-mt-20">
    <div class="grid lg:grid-cols-2 gap-10 items-start">
      <div>${sec(t.whoEyebrow, t.whoH, false)}
@@ -213,6 +258,7 @@ function render(t) {
  document.querySelectorAll('[data-t="navtag"]').forEach(e => e.textContent = t.navtag);
  document.querySelectorAll('[data-t="navcta"]').forEach(e => e.textContent = t.navcta);
  document.querySelectorAll('[data-t="blog"]').forEach(e => e.textContent = t.blog);
+ document.querySelectorAll('[data-t="navprice"]').forEach(e => e.textContent = t.navprice);
  document.querySelectorAll('a.contact').forEach(a => a.setAttribute('href', '#contact'));
  const ll = document.getElementById('langlabel'); if (ll) ll.textContent = t.short;
  calcROI();
@@ -232,7 +278,7 @@ async function submitContact(e) {
  if (data.hp) return false; // honeypot
  btn.disabled = true; btn.textContent = T.fSending;
  try {
-  const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+  const r = await fetch('https://ojidigital.app.n8n.cloud/webhook/automate-contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   if (!r.ok) throw new Error('server unavailable');
   f.style.display = 'none'; msg.style.display = 'block'; msg.style.color = '#bff0d8'; msg.textContent = T.fOk;
  } catch (err) {

@@ -54,3 +54,5 @@ a{text-decoration:none}
 .postcard{display:block;background:#fff;border:1px solid rgba(26,32,66,.08);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(26,32,66,.05),0 14px 30px -20px rgba(26,32,66,.22);transition:.15s}
 .postcard:hover{transform:translateY(-2px);box-shadow:0 1px 3px rgba(26,32,66,.05),0 22px 40px -20px rgba(26,32,66,.32)}
 .tagpill{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#dc1915;background:#fdecec;padding:3px 9px;border-radius:999px}
+.postthumb{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;background:#1a2042}
+.postbanner{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:16px;margin:18px 0 6px;box-shadow:0 14px 30px -18px rgba(26,32,66,.32)}

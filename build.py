@@ -77,7 +77,7 @@ HEAD_ASSETS = """<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">"""
 
-def head(lang, title, desc, canonical, alts, og_type="website"):
+def head(lang, title, desc, canonical, alts, og_type="website", og_image="/hero.webp"):
     hl = "".join(f'\n<link rel="alternate" hreflang="{l}" href="{BASE}{u}">' for l, u in alts.items())
     hl += f'\n<link rel="alternate" hreflang="x-default" href="{BASE}{alts["en"]}">'
     t = html.escape(title); d = html.escape(desc)
@@ -92,7 +92,7 @@ def head(lang, title, desc, canonical, alts, og_type="website"):
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{t}">
 <meta property="og:description" content="{d}">
-<meta property="og:image" content="{BASE}/hero.webp">
+<meta property="og:image" content="{BASE}{og_image}">
 <meta property="og:url" content="{BASE}{canonical}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.png">
@@ -144,11 +144,14 @@ def render_post(post, lang):
     slug = post["slug"]
     alts = {l: post_url(l, slug) for l in LANGS}
     rt = read_time(body, lang)
-    h = head(lang, f"{title} · OJI DIGITAL", desc, post_url(lang, slug), alts, og_type="article")
+    banner = f"/blog/img/{slug}.webp" if (ROOT / "blog" / "img" / f"{slug}.webp").exists() else None
+    h = head(lang, f"{title} · OJI DIGITAL", desc, post_url(lang, slug), alts, og_type="article", og_image=(banner or "/hero.webp"))
     hdr = header(lang, alts)
+    banner_img = f'<img src="{banner}" alt="" class="postbanner">' if banner else ""
     article = f"""
 <main class="max-w-3xl mx-auto px-5 py-12 sm:py-16">
   <a href="{blog_index_url(lang)}" class="text-[13px] font-bold text-muted hover:text-navy">{u['back']}</a>
+  {banner_img}
   <div class="mt-5 mb-2"><span class="tagpill">{html.escape(tag)}</span></div>
   <h1 class="text-3xl sm:text-[40px] font-extrabold text-navy leading-[1.12]">{html.escape(title)}</h1>
   <div class="text-[13px] text-muted mt-4 mb-8 flex items-center gap-2">
@@ -167,8 +170,10 @@ def render_index(posts, lang):
     hdr = header(lang, alts)
     cards = ""
     for p in posts:
+        thumb = f'<img src="/blog/img/{p["slug"]}.webp" alt="" class="postthumb">' if (ROOT / "blog" / "img" / f"{p['slug']}.webp").exists() else ""
         cards += f"""
     <a href="{post_url(lang, p['slug'])}" class="postcard">
+      {thumb}
       <div class="p-6">
         <span class="tagpill">{html.escape(p['tag'][lang])}</span>
         <h2 class="text-xl font-extrabold text-navy leading-snug mt-3">{html.escape(p['title'][lang])}</h2>
