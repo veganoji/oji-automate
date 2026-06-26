@@ -25,6 +25,13 @@ a{text-decoration:none}
 /* nav blog link */
 .navlink{font-size:13px;font-weight:700;color:#6b7088;padding:7px 4px}
 .navlink:hover{color:#1a2042}
+/* automate logo lockup (OJI mark + wordmark + square period) */
+.logolock{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
+.logolock .mk{height:21px;width:auto;display:block}
+@media(min-width:640px){.logolock .mk{height:24px}}
+.logolock .wm{font-weight:800;font-size:22px;color:#1a2042;letter-spacing:-.02em;line-height:1;display:inline-flex;align-items:flex-end}
+@media(min-width:640px){.logolock .wm{font-size:25px}}
+.logolock .sq{display:inline-block;width:.22em;height:.22em;background:#dc1915;margin-left:.08em;flex:none}
 /* ROI calculator */
 .roi-field label{display:block;font-size:12px;font-weight:700;color:#3a3f5c;margin-bottom:6px}
 .roi-field input{width:100%;border:1px solid #d9d6dd;border-radius:11px;padding:11px 13px;font:16px 'Inter',sans-serif;color:#1a2042;outline:none}
