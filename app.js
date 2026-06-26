@@ -1,7 +1,7 @@
 const MAIL = "mailto:hello@ojidigital.com";
 const C = {
  en: {
-  short: "EN", navtag: "AI & Automation", navcta: "Get in touch", blog: "Blog", mailsubj: "Automation enquiry",
+  short: "EN", navtag: "AI & Automation", navcta: "Get in touch", blog: "Blog", mailsubj: "Automation inquiry",
   heroEyebrow: "AI-powered business automation",
   h1: "Automate the work a machine should be doing.",
   sub: "We design and build AI-powered automations that quietly run your repetitive business processes — inbox, invoicing, documents, data, reporting — so your team spends its hours on what actually grows the business.",
@@ -39,7 +39,7 @@ const C = {
   finalH: "Tell us your most annoying repetitive task.",
   finalSub: "We'll tell you — free — whether it can be automated and roughly what it would save you.",
   fName: "Your name", fEmail: "Email", fCompany: "Company (optional)", fMsg: "What would you like to automate?",
-  fSend: "Send enquiry", fSending: "Sending…", fOk: "Thank you — we'll reply within one business day.",
+  fSend: "Send inquiry", fSending: "Sending…", fOk: "Thank you — we'll reply within one business day.",
   fErr: "Couldn't send. Please email hello@ojidigital.com directly.", fAlt: "Prefer email?", fOpening: "Opening your email app — just hit send.",
   foot: "OJI DIGITAL · Vegan Oji Inc. · AI & business-process automation"
  },
@@ -284,7 +284,7 @@ async function submitContact(e) {
  } catch (err) {
   // graceful fallback: open the visitor's email client, pre-filled to hello@
   const body = `${data.message}\n\n— ${data.name}${data.company ? ' (' + data.company + ')' : ''}\n${data.email}`;
-  const mailto = 'mailto:hello@ojidigital.com?subject=' + encodeURIComponent('Automation enquiry — ' + data.name) + '&body=' + encodeURIComponent(body);
+  const mailto = 'mailto:hello@ojidigital.com?subject=' + encodeURIComponent('Automation inquiry — ' + data.name) + '&body=' + encodeURIComponent(body);
   window.location.href = mailto;
   btn.disabled = false; btn.textContent = T.fSend + ' →';
   msg.style.display = 'block'; msg.style.color = '#ffe2b0'; msg.textContent = T.fOpening;

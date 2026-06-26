@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OJI DIGITAL · Leads</title>
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{navy:{DEFAULT:'#1a2042',50:'#eef0f6'},red:{DEFAULT:'#dc1915'},paper:'#fbf7f7',muted:'#6b7088'}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ body{background:#fbf7f7;color:#1a2042;font-family:Inter,'Noto Sans JP',sans-serif}
+ .pill{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;white-space:nowrap}
+ .row:hover{background:#fff}
+ .chip{font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid rgba(26,32,66,.15);cursor:pointer}
+ .chip.on{background:#1a2042;color:#fff;border-color:#1a2042}
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-20 bg-paper/90 backdrop-blur border-b border-navy/10">
+ <div class="max-w-6xl mx-auto px-5 h-[60px] flex items-center justify-between gap-3">
+   <div class="flex items-center gap-2"><span class="font-extrabold text-lg">OJI<span class="text-red">.</span> DIGITAL</span><span class="text-muted text-sm">· Leads</span></div>
+   <div class="flex items-center gap-3 text-sm">
+     <span id="count" class="text-muted"></span>
+     <button onclick="load()" class="chip">↻ Refresh</button>
+     <button onclick="resetKey()" class="chip">Key</button>
+     <a href="https://alexderyczs-team.monday.com/boards/18419481035" target="_blank" class="chip on">Open Monday →</a>
+   </div>
+ </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-5 py-8">
+ <div class="flex items-center justify-between gap-3 flex-wrap mb-5">
+   <div>
+     <h1 class="text-2xl font-extrabold">Inquiries</h1>
+     <p class="text-muted text-sm mt-1">Read-only view of the <b class="text-navy">🤖 AUTOMATE — Leads</b> Monday board. Reply &amp; manage from the inquiry email or in Monday.</p>
+   </div>
+   <div id="filters" class="flex gap-2 flex-wrap"></div>
+ </div>
+ <div id="state" class="text-muted text-sm py-16 text-center">Loading…</div>
+ <div id="list" class="space-y-2"></div>
+</main>
+
+<script>
+const WEBHOOK="https://ojidigital.app.n8n.cloud/webhook/automate-leads";
+const SC={New:'#2563eb',Contacted:'#1f9d76',Quoted:'#c98a14',Won:'#16a34a',Lost:'#9aa0b0',Spam:'#dc1915'};
+let ALL=[], filter='all';
+function getKey(){ let k=localStorage.getItem('oji_leads_key'); if(!k){ k=prompt('Access key (from ~/.config/oji-keys/invoice-approve-secret):')||''; if(k) localStorage.setItem('oji_leads_key',k.trim()); } return (k||'').trim(); }
+function resetKey(){ localStorage.removeItem('oji_leads_key'); load(); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmt(d){ if(!d) return ''; const t=new Date(d); if(isNaN(t)) return ''; return t.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+t.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }
+async function load(){
+  const key=getKey(); const st=document.getElementById('state');
+  st.style.display='block'; st.textContent='Loading…'; document.getElementById('list').innerHTML='';
+  try{
+    const r=await fetch(WEBHOOK+'?token='+encodeURIComponent(key)+'&cb='+Date.now());
+    const d=await r.json();
+    if(!d||!d.leads) throw new Error('bad');
+    ALL=d.leads.sort((a,b)=>(b.created||'').localeCompare(a.created||''));
+    render();
+  }catch(e){ st.textContent=''; st.innerHTML='Couldn’t load leads — your access key may be wrong. <button onclick="resetKey()" class="chip" style="margin-left:8px">Re-enter key</button>'; }
+}
+function render(){
+  const st=document.getElementById('state'); st.style.display='none';
+  const statuses=['all',...Object.keys(SC)];
+  document.getElementById('filters').innerHTML=statuses.map(s=>`<span class="chip ${filter===s?'on':''}" onclick="filter='${s}';render()">${s==='all'?'All':s}</span>`).join('');
+  const rows=ALL.filter(l=>filter==='all'||l.status===filter);
+  document.getElementById('count').textContent=ALL.length+' total';
+  if(!rows.length){ document.getElementById('list').innerHTML='<div class="text-muted text-sm py-16 text-center">No leads'+(filter!=='all'?' in '+filter:'')+' yet.</div>'; return; }
+  document.getElementById('list').innerHTML=rows.map(l=>{
+    const c=SC[l.status]||'#9aa0b0';
+    return `<div class="row bg-white/60 border border-navy/10 rounded-xl p-4 flex items-start gap-4">
+      <span class="pill" style="color:${c};background:${c}1f">${esc(l.status||'—')}</span>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center gap-2 flex-wrap"><span class="font-bold">${esc(l.name||'—')}</span>${l.company?`<span class="text-muted text-sm">· ${esc(l.company)}</span>`:''}${l.lang?`<span class="text-[10px] font-bold text-muted border border-navy/15 rounded px-1.5 py-0.5">${esc(l.lang).toUpperCase()}</span>`:''}</div>
+        <a href="mailto:${esc(l.email)}" class="text-sm text-red font-semibold">${esc(l.email||'')}</a>
+        <p class="text-sm text-navy/80 mt-1.5 leading-relaxed">${esc(l.message||'')}</p>
+        ${l.quote?`<p class="text-xs text-muted mt-1.5"><b>Suggested:</b> ${esc(l.quote)}</p>`:''}
+      </div>
+      <div class="text-right shrink-0">
+        <div class="text-xs text-muted whitespace-nowrap">${fmt(l.created)}</div>
+        <a href="${l.url}" target="_blank" class="inline-block mt-2 text-xs font-bold text-navy border border-navy/15 rounded-lg px-2.5 py-1 hover:bg-navy hover:text-white">Monday →</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+load();
+</script>
+</body>
+</html>
