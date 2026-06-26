@@ -31,7 +31,7 @@ const C = {
   finalSub: "We'll tell you — free — whether it can be automated and roughly what it would save you.",
   fName: "Your name", fEmail: "Email", fCompany: "Company (optional)", fMsg: "What would you like to automate?",
   fSend: "Send enquiry", fSending: "Sending…", fOk: "Thank you — we'll reply within one business day.",
-  fErr: "Couldn't send. Please email hello@ojidigital.com directly.", fAlt: "Prefer email?",
+  fErr: "Couldn't send. Please email hello@ojidigital.com directly.", fAlt: "Prefer email?", fOpening: "Opening your email app — just hit send.",
   foot: "OJI DIGITAL · Vegan Oji Inc. · AI & business-process automation"
  },
  ja: {
@@ -65,7 +65,7 @@ const C = {
   finalSub: "自動化できるか、どれくらい削減できそうかを、無料でお答えします。",
   fName: "お名前", fEmail: "メールアドレス", fCompany: "会社名（任意）", fMsg: "自動化したい業務は？",
   fSend: "送信する", fSending: "送信中…", fOk: "ありがとうございます。1営業日以内にご返信します。",
-  fErr: "送信できませんでした。hello@ojidigital.com まで直接ご連絡ください。", fAlt: "メールでも承ります：",
+  fErr: "送信できませんでした。hello@ojidigital.com まで直接ご連絡ください。", fAlt: "メールでも承ります：", fOpening: "メールアプリを開きます。そのまま送信してください。",
   foot: "OJI DIGITAL · ビーガン王子株式会社 · AI・業務自動化"
  },
  fr: {
@@ -99,7 +99,7 @@ const C = {
   finalSub: "Nous vous dirons — gratuitement — si elle est automatisable et ce qu'elle vous ferait gagner.",
   fName: "Votre nom", fEmail: "E-mail", fCompany: "Entreprise (facultatif)", fMsg: "Que souhaitez-vous automatiser ?",
   fSend: "Envoyer", fSending: "Envoi…", fOk: "Merci — nous répondons sous un jour ouvré.",
-  fErr: "Échec de l'envoi. Écrivez-nous à hello@ojidigital.com.", fAlt: "Plutôt par e-mail ?",
+  fErr: "Échec de l'envoi. Écrivez-nous à hello@ojidigital.com.", fAlt: "Plutôt par e-mail ?", fOpening: "Ouverture de votre messagerie — il ne reste qu'à envoyer.",
   foot: "OJI DIGITAL · Vegan Oji Inc. · IA & automatisation des processus"
  }
 };
@@ -229,14 +229,19 @@ async function submitContact(e) {
  e.preventDefault();
  const f = e.target, btn = document.getElementById('cbtn'), msg = document.getElementById('cmsg');
  const data = { name: f.name.value, email: f.email.value, company: f.company.value, message: f.message.value, hp: f.hp.value, lang: document.documentElement.lang || 'en' };
+ if (data.hp) return false; // honeypot
  btn.disabled = true; btn.textContent = T.fSending;
  try {
   const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-  if (!r.ok) throw new Error('bad');
+  if (!r.ok) throw new Error('server unavailable');
   f.style.display = 'none'; msg.style.display = 'block'; msg.style.color = '#bff0d8'; msg.textContent = T.fOk;
  } catch (err) {
+  // graceful fallback: open the visitor's email client, pre-filled to hello@
+  const body = `${data.message}\n\n— ${data.name}${data.company ? ' (' + data.company + ')' : ''}\n${data.email}`;
+  const mailto = 'mailto:hello@ojidigital.com?subject=' + encodeURIComponent('Automation enquiry — ' + data.name) + '&body=' + encodeURIComponent(body);
+  window.location.href = mailto;
   btn.disabled = false; btn.textContent = T.fSend + ' →';
-  msg.style.display = 'block'; msg.style.color = '#ffd0ce'; msg.textContent = T.fErr;
+  msg.style.display = 'block'; msg.style.color = '#ffe2b0'; msg.textContent = T.fOpening;
  }
  return false;
 }
