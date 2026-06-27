@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>automate — network hero (custom nodes)</title>
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+ :root{--red:#dc1915}
+ body{background:#fbf7f7;color:#1a2042;font-family:Inter,sans-serif}
+ .hero{position:relative;border-radius:22px;overflow:hidden;background:radial-gradient(120% 120% at 80% 10%,#202657 0%,#12152e 55%,#0c0e22 100%);min-height:460px;display:flex;align-items:center}
+ .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+ .hero .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(12,14,34,.93) 0%,rgba(12,14,34,.7) 40%,rgba(12,14,34,.15) 72%,rgba(12,14,34,.35) 100%)}
+ .hero .inner{position:relative;z-index:2;padding:52px 48px;max-width:640px}
+ .eyebrow{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#ff9b97}
+ .hero h2{font-size:clamp(30px,4.4vw,48px);font-weight:800;line-height:1.06;color:#fff;letter-spacing:-.02em;margin:13px 0 0}
+ .hero p{color:rgba(255,255,255,.84);margin:17px 0 0;font-size:15.5px;max-width:32ch}
+ .btn{display:inline-flex;align-items:center;gap:8px;margin-top:28px;background:var(--red);color:#fff;font-weight:700;border-radius:12px;padding:13px 22px;font-size:15px}
+</style>
+</head>
+<body>
+<header class="max-w-5xl mx-auto px-6 pt-12 pb-6">
+  <div class="inline-block px-3 py-1 rounded-full text-[#dc1915] text-xs font-bold mb-3" style="background:#fdecec">Internal · concept · not indexed</div>
+  <h1 class="text-3xl sm:text-4xl font-extrabold">Network hero — built from <span class="text-[#dc1915]">your tasks</span></h1>
+  <p class="text-[#6b7088] mt-3 max-w-2xl leading-relaxed">Not plain dots: the nodes are the things you automate — <b class="text-[#1a2042]">emails, invoices, gears, bots, reports</b> (custom-generated icons) — wired together, with the <b class="text-[#1a2042]">OJI red square</b> as the recurring hub the work flows through. Pulses fire along the links. This is the candidate homepage hero. Say the word and I’ll wire it in (with any tweak — density, speed, which icons).</p>
+</header>
+<main class="max-w-5xl mx-auto px-6 pb-24">
+  <section class="hero"><canvas id="net"></canvas><div class="scrim"></div>
+    <div class="inner"><div class="eyebrow">AI-powered business automation</div>
+      <h2>Automate the work a machine should be doing.</h2>
+      <p>We design and build AI automations that quietly run your repetitive business processes — in your brand, in one flow.</p>
+      <span class="btn">Book a free automation audit →</span></div>
+  </section>
+</main>
+
+<script>
+const ICONS=['email','gear','doc','bolt','robot','chart'];
+const imgs=ICONS.map(s=>{const i=new Image();i.src='/hero/nodes/'+s+'.webp';return i;});
+const cv=document.getElementById('net');let x,W,H,pts,pulses,tick=0;
+function fit(){const p=cv.parentElement;const dpr=Math.min(devicePixelRatio||1,2);cv.width=Math.max(1,p.clientWidth*dpr);cv.height=Math.max(1,p.clientHeight*dpr);x=cv.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);W=p.clientWidth;H=p.clientHeight;}
+function build(){fit();pulses=[];tick=0;const N=Math.max(16,Math.min(30,Math.round(W*H/22000)));
+  pts=[...Array(N)].map(()=>{const sq=Math.random()<.42;return {x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,ph:Math.random()*6.28,type:sq?'sq':(Math.random()*ICONS.length)|0,size:sq?(15+Math.random()*8):(28+Math.random()*16)};});}
+function node(n){const glow=.6+.4*Math.sin(tick*.045+n.ph);
+  if(n.type==='sq'){const s=n.size;x.save();x.shadowColor='#dc1915';x.shadowBlur=18*glow;x.fillStyle='#dc1915';x.fillRect(n.x-s/2,n.y-s/2,s,s);x.restore();}
+  else{const img=imgs[n.type];const s=n.size;if(img&&img.complete&&img.naturalWidth){x.save();x.shadowColor='rgba(255,225,170,.85)';x.shadowBlur=12*glow;x.globalAlpha=.97;x.drawImage(img,n.x-s/2,n.y-s/2,s,s);x.restore();}else{x.fillStyle='#8aa0ff';x.beginPath();x.arc(n.x,n.y,3,0,7);x.fill();}}}
+function frame(){tick++;x.clearRect(0,0,W,H);const N=pts.length;const links=[];
+  for(let i=0;i<N;i++){const a=pts[i];a.x+=a.vx;a.y+=a.vy;if(a.x<8||a.x>W-8)a.vx*=-1;if(a.y<8||a.y>H-8)a.vy*=-1;
+    for(let j=i+1;j<N;j++){const b=pts[j];const dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<170){x.globalAlpha=(1-d/170)*.4;x.strokeStyle='#6b7cd0';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();links.push([a,b]);}}}
+  x.globalAlpha=1;
+  if(links.length&&tick%5===0){const lk=links[(Math.random()*links.length)|0];pulses.push({a:lk[0],b:lk[1],t:0,sp:.02+Math.random()*.025,c:Math.random()<.55?'#ff7a45':'#e6b23a'});}
+  for(let p=pulses.length-1;p>=0;p--){const pu=pulses[p];pu.t+=pu.sp;if(pu.t>=1){pulses.splice(p,1);continue;}const px=pu.a.x+(pu.b.x-pu.a.x)*pu.t,py=pu.a.y+(pu.b.y-pu.a.y)*pu.t;x.fillStyle=pu.c;x.shadowColor=pu.c;x.shadowBlur=12;x.beginPath();x.arc(px,py,2.3,0,7);x.fill();}
+  x.shadowBlur=0;for(const n of pts)node(n);
+  requestAnimationFrame(frame);}
+function boot(){build();frame();}
+addEventListener('resize',()=>{build();});
+if(document.readyState==='complete')boot();else addEventListener('load',boot);
+</script>
+</body>
+</html>
