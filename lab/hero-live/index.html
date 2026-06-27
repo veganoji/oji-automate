@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>automate — live animated hero concepts</title>
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+ :root{--navy:#1a2042;--red:#dc1915}
+ body{background:#fbf7f7;color:#1a2042;font-family:Inter,sans-serif}
+ .vtag{font-size:13px;font-weight:800;color:#1a2042;background:#fff;border:1px solid rgba(26,32,66,.12);border-radius:999px;padding:5px 14px;display:inline-block}
+ .hero{position:relative;border-radius:22px;overflow:hidden;background:#12152e;min-height:380px;display:flex;align-items:center}
+ .hero .bg{position:absolute;inset:0;z-index:0}
+ .hero canvas{width:100%;height:100%;display:block}
+ .hero .inner{position:relative;z-index:2;padding:48px 44px;max-width:620px}
+ .hero .eyebrow{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#ff9b97}
+ .hero h2{font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.07;color:#fff;letter-spacing:-.02em;margin:12px 0 0}
+ .hero p{color:rgba(255,255,255,.82);margin:16px 0 0;font-size:15px;max-width:30ch}
+ .hero .btn{display:inline-flex;align-items:center;gap:8px;margin-top:26px;background:var(--red);color:#fff;font-weight:700;border-radius:12px;padding:12px 20px;font-size:15px}
+ .hero .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(18,21,46,.92) 0%,rgba(18,21,46,.72) 38%,rgba(18,21,46,.25) 70%,rgba(18,21,46,.4) 100%)}
+ .aurora .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.75;mix-blend-mode:screen}
+ .aurora .b1{width:46%;height:120%;left:-6%;top:-20%;background:#2b2f86;animation:drift1 16s ease-in-out infinite alternate}
+ .aurora .b2{width:42%;height:120%;right:-4%;top:-30%;background:#dc1915;opacity:.5;animation:drift2 19s ease-in-out infinite alternate}
+ .aurora .b3{width:50%;height:120%;left:30%;bottom:-40%;background:#7a3bb0;animation:drift3 22s ease-in-out infinite alternate}
+ .aurora .b4{width:28%;height:90%;right:18%;bottom:-20%;background:#c9a227;opacity:.35;animation:drift1 14s ease-in-out infinite alternate-reverse}
+ @keyframes drift1{to{transform:translate(12%,8%) scale(1.15)}}
+ @keyframes drift2{to{transform:translate(-10%,12%) scale(1.2)}}
+ @keyframes drift3{to{transform:translate(8%,-10%) scale(1.1)}}
+ .mesh{background:linear-gradient(125deg,#12152e,#1a2042 25%,#2a2f6b 45%,#5a2a6e 62%,#7a1f1c 80%,#12152e 100%);background-size:320% 320%;animation:meshmove 18s ease infinite}
+ @keyframes meshmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+ .mesh .grain{position:absolute;inset:0;opacity:.5;background:radial-gradient(circle at 70% 30%,rgba(220,25,21,.35),transparent 45%),radial-gradient(circle at 25% 75%,rgba(201,162,39,.25),transparent 40%)}
+</style>
+</head>
+<body>
+<header class="max-w-5xl mx-auto px-6 pt-12 pb-6">
+  <div class="inline-block px-3 py-1 rounded-full text-[#dc1915] text-xs font-bold mb-3" style="background:#fdecec">Internal · live concepts · not indexed</div>
+  <h1 class="text-3xl sm:text-4xl font-extrabold">Hero backgrounds — 6 <span class="text-[#dc1915]">animated</span> styles</h1>
+  <p class="text-[#6b7088] mt-3 max-w-2xl leading-relaxed">These are <b class="text-[#1a2042]">live, code-driven</b> hero backgrounds (they move) — a totally different direction from static art. Each is shown with the real headline on top. Tell me the number you like (and any tweak — slower, more red, denser, etc.) and I’ll wire it into the homepage hero. They’re lightweight and pause when off-screen.</p>
+</header>
+<main class="max-w-5xl mx-auto px-6 pb-24 space-y-9" id="grid"></main>
+
+<script>
+const COPY=`<div class="inner"><div class="eyebrow">AI-powered business automation</div><h2>Automate the work a machine should be doing.</h2><p>AI automations that quietly run your repetitive work.</p><span class="btn">Book a free automation audit →</span></div>`;
+const CONCEPTS=[
+ {tag:'1 · Neural network', desc:'Drifting nodes that wire themselves together — the “everything connected / automated” read.', html:`<div class="bg"><canvas id="c_net"></canvas></div><div class="scrim"></div>`},
+ {tag:'2 · Aurora drift', desc:'Soft morphing colour clouds (CSS only, very smooth). Calm, premium, text-friendly.', html:`<div class="bg aurora"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></div><div class="scrim"></div>`},
+ {tag:'3 · Data streams', desc:'Glowing streaks flowing left→right like data moving through pipelines. Energetic.', html:`<div class="bg"><canvas id="c_streams"></canvas></div><div class="scrim"></div>`},
+ {tag:'4 · Pipeline', desc:'Tokens travelling along automation pipelines on a soft grid. The most literal “automation”.', html:`<div class="bg" id="bg_pipe"></div><div class="scrim"></div>`},
+ {tag:'5 · Mesh gradient', desc:'A slowly shifting multi-colour gradient (CSS only). Modern SaaS, ultra-clean.', html:`<div class="bg mesh"><div class="grain"></div></div><div class="scrim"></div>`},
+ {tag:'6 · Chaos → order', desc:'Tangled lines that keep resolving into one clean flow — literally the brand story, animated.', html:`<div class="bg"><canvas id="c_resolve"></canvas></div><div class="scrim"></div>`},
+];
+document.getElementById('grid').innerHTML=CONCEPTS.map(c=>`
+ <div>
+   <div class="flex items-baseline gap-3 mb-3 flex-wrap"><span class="vtag">${c.tag}</span><span class="text-[#6b7088] text-sm">${c.desc}</span></div>
+   <section class="hero">${c.html}${COPY}</section>
+ </div>`).join('');
+
+const RED='#dc1915',GOLD='#e0a92e';
+const live=new Set();
+function fit(cv){const p=cv.parentElement;const dpr=Math.min(devicePixelRatio||1,2);cv.width=Math.max(1,p.clientWidth*dpr);cv.height=Math.max(1,p.clientHeight*dpr);const x=cv.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);return x;}
+function lerp(a,b,t){return a+(b-a)*t;}
+
+// 1 NEURAL NETWORK
+(function(){const cv=document.getElementById('c_net');let x,W,H,pts;
+ function init(){x=fit(cv);W=cv.clientWidth;H=cv.clientHeight;const N=Math.max(20,Math.min(60,Math.round(W*H/13000)));pts=[...Array(N)].map(()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.8+1.3,c:Math.random()<.28?RED:(Math.random()<.45?GOLD:'#8aa0ff')}));}
+ function frame(){if(!live.has('net'))return;x.clearRect(0,0,W,H);const N=pts.length;
+   for(let i=0;i<N;i++){const a=pts[i];a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+     for(let j=i+1;j<N;j++){const b=pts[j];const dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<130){x.globalAlpha=(1-d/130)*.4;x.strokeStyle='#6273c0';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}}
+   x.globalAlpha=1;for(const p of pts){x.beginPath();x.fillStyle=p.c;x.shadowColor=p.c;x.shadowBlur=9;x.arc(p.x,p.y,p.r,0,7);x.fill();}x.shadowBlur=0;requestAnimationFrame(frame);}
+ cv._start=()=>{init();if(!live.has('net')){live.add('net');frame();}};cv._stop=()=>live.delete('net');
+ addEventListener('resize',()=>{if(live.has('net'))init();});
+})();
+
+// 3 DATA STREAMS
+(function(){const cv=document.getElementById('c_streams');let x,W,H,S;
+ function mk(){const g=Math.random()<.5;return {x:Math.random()*W,y:Math.random()*H,len:Math.random()*140+70,sp:Math.random()*2.6+1.2,w:Math.random()*1.7+.7,c:g?'224,169,46':'255,120,80'};}
+ function init(){x=fit(cv);W=cv.clientWidth;H=cv.clientHeight;S=[...Array(Math.max(18,Math.round(W/30)))].map(mk);}
+ function frame(){if(!live.has('streams'))return;x.clearRect(0,0,W,H);
+   for(const s of S){s.x+=s.sp;if(s.x-s.len>W){s.x=-s.len;s.y=Math.random()*H;}
+     const g=x.createLinearGradient(s.x-s.len,0,s.x,0);g.addColorStop(0,`rgba(${s.c},0)`);g.addColorStop(1,`rgba(${s.c},.9)`);
+     x.strokeStyle=g;x.lineWidth=s.w;x.beginPath();x.moveTo(s.x-s.len,s.y);x.lineTo(s.x,s.y);x.stroke();
+     x.fillStyle=`rgba(${s.c},1)`;x.shadowColor=`rgba(${s.c},1)`;x.shadowBlur=10;x.beginPath();x.arc(s.x,s.y,s.w+.7,0,7);x.fill();x.shadowBlur=0;}
+   requestAnimationFrame(frame);}
+ cv._start=()=>{init();if(!live.has('streams')){live.add('streams');frame();}};cv._stop=()=>live.delete('streams');
+ addEventListener('resize',()=>{if(live.has('streams'))init();});
+})();
+
+// 6 CHAOS -> ORDER
+(function(){const cv=document.getElementById('c_resolve');let x,W,H,lines,t=0;const M=28;
+ function init(){x=fit(cv);W=cv.clientWidth;H=cv.clientHeight;lines=[...Array(M)].map(()=>({a:{x:Math.random()*W,y:Math.random()*H},b:{x:Math.random()*W,y:Math.random()*H}}));}
+ function frame(){if(!live.has('resolve'))return;t+=.006;const phase=(Math.sin(t)+1)/2;x.clearRect(0,0,W,H);
+   for(let i=0;i<M;i++){const ln=lines[i];const oy=H*0.5+(i-M/2)*2.4;
+     const ax=lerp(ln.a.x,W*0.1,phase),ay=lerp(ln.a.y,oy,phase);
+     const bx=lerp(ln.b.x,W*0.94,phase),by=lerp(ln.b.y,oy,phase);
+     const cx=lerp((ln.a.x+ln.b.x)/2+Math.sin(t*2+i)*70,W*0.5,phase),cy=lerp((ln.a.y+ln.b.y)/2,oy,phase);
+     x.strokeStyle=i%5===0?`rgba(220,25,21,${.5+phase*.4})`:`rgba(224,169,46,${.16+phase*.24})`;x.lineWidth=i%5===0?1.7:1;
+     x.beginPath();x.moveTo(ax,ay);x.quadraticCurveTo(cx,cy,bx,by);x.stroke();}
+   x.fillStyle=RED;x.shadowColor=RED;x.shadowBlur=20*phase;x.globalAlpha=phase;x.beginPath();x.arc(W*0.94,H*0.5,4.5,0,7);x.fill();x.globalAlpha=1;x.shadowBlur=0;
+   requestAnimationFrame(frame);}
+ cv._start=()=>{init();if(!live.has('resolve')){live.add('resolve');frame();}};cv._stop=()=>live.delete('resolve');
+ addEventListener('resize',()=>{if(live.has('resolve'))init();});
+})();
+
+// 4 PIPELINE (SVG)
+(function(){const host=document.getElementById('bg_pipe');host.style.background='#141938';
+ host.innerHTML=`<svg viewBox="0 0 800 380" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%">
+   <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/></pattern></defs>
+   <rect width="800" height="380" fill="url(#grid)"/>
+   ${[80,160,240,300].map((y,i)=>`<path id="p${i}" d="M-20 ${y} C 200 ${y}, 240 ${y+(i%2?70:-60)}, 460 ${y+(i%2?70:-60)} S 720 ${y+(i%2?-20:30)}, 840 ${y+(i%2?-20:30)}" fill="none" stroke="rgba(120,140,220,.22)" stroke-width="2"/>`).join('')}
+   ${[0,1,2,3].map(i=>[0,1,2].map(k=>`<circle r="3.6" fill="${k%2?'#e0a92e':'#ff7a45'}"><animateMotion dur="${6+i*1.5+k*2}s" repeatCount="indefinite" begin="${k*2}s"><mpath href="#p${i}"/></animateMotion></circle>`).join('')).join('')}
+ </svg>`;
+})();
+
+const io=new IntersectionObserver(es=>{es.forEach(e=>{const cv=e.target;if(e.isIntersecting)cv._start&&cv._start();else cv._stop&&cv._stop();});},{threshold:.12});
+function boot(){['c_net','c_streams','c_resolve'].forEach(id=>{const cv=document.getElementById(id);if(cv){io.observe(cv);cv._start&&cv._start();}});}
+if(document.readyState==='complete')boot();else addEventListener('load',boot);
+</script>
+</body>
+</html>
