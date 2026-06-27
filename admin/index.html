@@ -42,6 +42,18 @@
      <button type="submit" class="btnp" style="margin-top:6px">Sign in</button>
      <p id="loginerr" style="color:#dc1915;font-size:13px;margin-top:11px;display:none">Wrong password — try again.</p>
    </form>
+   <div style="display:flex;gap:16px;margin-top:14px;font-size:12.5px">
+     <a onclick="resendPw()" style="color:#6b7088;cursor:pointer;text-decoration:underline">Email me the password</a>
+     <a onclick="document.getElementById('codebox').style.display='block';document.getElementById('codeInput').focus()" style="color:#6b7088;cursor:pointer;text-decoration:underline">Use a login code</a>
+   </div>
+   <div id="codebox" style="display:none;margin-top:14px;border-top:1px solid #eef0f6;padding-top:14px">
+     <button onclick="sendCode()" class="btnp" style="background:#1a2042">Email me a 6-digit code</button>
+     <form onsubmit="return verifyCode(event)" style="display:flex;gap:8px;margin-top:9px">
+       <input id="codeInput" class="fld" placeholder="6-digit code" inputmode="numeric" autocomplete="one-time-code" style="flex:1">
+       <button type="submit" class="btnp" style="width:auto;padding:12px 18px">Verify</button>
+     </form>
+   </div>
+   <p id="accmsg" style="font-size:12.5px;color:#1f9d76;margin-top:11px;min-height:1.1em"></p>
  </div>
 </div>
 
@@ -81,6 +93,12 @@ function getKey(){ try{ return (localStorage.getItem('oji_leads_key')||sessionSt
 function showLogin(err){ document.getElementById('login').style.display='flex'; document.getElementById('loginerr').style.display=err?'block':'none'; const pw=document.getElementById('pw'); if(pw){ pw.value=''; pw.focus(); } }
 function signIn(e){ e.preventDefault(); const k=document.getElementById('pw').value.trim(); if(!k) return false; try{ localStorage.removeItem('oji_leads_key'); sessionStorage.removeItem('oji_leads_key'); (document.getElementById('remember').checked?localStorage:sessionStorage).setItem('oji_leads_key',k); }catch(e2){} document.getElementById('login').style.display='none'; load(); return false; }
 function signOut(){ try{ localStorage.removeItem('oji_leads_key'); sessionStorage.removeItem('oji_leads_key'); }catch(e){} ALL=[]; document.getElementById('list').innerHTML=''; document.getElementById('count').textContent=''; showLogin(false); }
+const ACCESS="https://ojidigital.app.n8n.cloud/webhook/admin-access";
+function accMsg(t,err){ const m=document.getElementById('accmsg'); if(m){ m.textContent=t||''; m.style.color=err?'#dc1915':'#1f9d76'; } }
+async function access(action,extra){ const r=await fetch(ACCESS,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({action},extra||{}))}); return r.json(); }
+async function resendPw(){ accMsg('Sending…'); try{ const d=await access('resend'); accMsg(d&&d.ok?'Password emailed to you ✓':'Could not send.', !(d&&d.ok)); }catch(e){ accMsg('Could not send — try again.',true); } }
+async function sendCode(){ accMsg('Sending code…'); document.getElementById('codebox').style.display='block'; try{ const d=await access('request-code'); accMsg(d&&d.ok?'Code emailed — enter it below ✓':'Could not send.', !(d&&d.ok)); const ci=document.getElementById('codeInput'); if(ci)ci.focus(); }catch(e){ accMsg('Could not send — try again.',true); } }
+async function verifyCode(e){ if(e)e.preventDefault(); const code=document.getElementById('codeInput').value.trim(); if(!code)return false; accMsg('Checking…'); try{ const d=await access('verify-code',{code}); if(d&&d.ok&&d.token){ try{ localStorage.removeItem('oji_leads_key'); sessionStorage.removeItem('oji_leads_key'); (document.getElementById('remember').checked?localStorage:sessionStorage).setItem('oji_leads_key',d.token); }catch(e2){} document.getElementById('login').style.display='none'; load(); } else accMsg('Invalid or expired code — request a new one.',true); }catch(e3){ accMsg('Error — try again.',true); } return false; }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function fmt(d){ if(!d) return ''; const t=new Date(d); if(isNaN(t)) return ''; return t.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+t.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }
 async function load(){
