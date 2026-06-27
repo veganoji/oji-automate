@@ -149,16 +149,17 @@ function render(t) {
  T = t;
  const sec = (eyebrow, h, center = true) => `<div class="${center ? 'text-center max-w-2xl mx-auto' : 'max-w-2xl'} mb-10"><div class="eyebrow text-red mb-2">${eyebrow}</div><h2 class="text-2xl sm:text-3xl font-extrabold text-navy leading-tight">${h}</h2></div>`;
  document.getElementById('page').innerHTML = `
- <section class="hero text-white">
-   <div class="max-w-6xl mx-auto px-5 py-16 sm:py-20 grid lg:grid-cols-2 gap-12 items-center">
-     <div>
+ <section class="hero hero-net text-white">
+   <canvas id="heronet"></canvas>
+   <div class="hero-scrim"></div>
+   <div class="max-w-6xl mx-auto px-5 py-20 sm:py-28 relative w-full" style="z-index:2">
+     <div class="max-w-2xl">
        <div class="eyebrow mb-4" style="color:#ff9b97">${t.heroEyebrow}</div>
-       <h1 class="text-4xl sm:text-[50px] font-extrabold leading-[1.06]">${t.h1}</h1>
-       <p class="mt-6 text-lg text-white/80 leading-relaxed">${t.sub}</p>
+       <h1 class="text-4xl sm:text-[52px] font-extrabold leading-[1.05]">${t.h1}</h1>
+       <p class="mt-6 text-lg text-white/85 leading-relaxed max-w-xl">${t.sub}</p>
        <div class="mt-9 flex flex-wrap gap-3"><a class="btn btn-red contact">${t.cta1} →</a></div>
        <p class="mt-6 text-[12.5px] text-white/55">${t.trust}</p>
      </div>
-     <div class="hidden lg:block"><img src="/hero.webp" alt="" class="w-full rounded-3xl border border-white/10 shadow-2xl"></div>
    </div>
  </section>
 
@@ -262,6 +263,41 @@ function render(t) {
  document.querySelectorAll('a.contact').forEach(a => a.setAttribute('href', '#contact'));
  const ll = document.getElementById('langlabel'); if (ll) ll.textContent = t.short;
  calcROI();
+ initHeroNet();
+}
+
+// Homepage hero: animated "workflow grid" — custom task-icon nodes + OJI red-square hubs, pulses along the wires
+const HERO_ICONS = ['email', 'gear', 'doc', 'bolt', 'robot', 'chart'];
+const heroImgs = HERO_ICONS.map(s => { const i = new Image(); i.src = '/hero/nodes/' + s + '.webp'; return i; });
+let heroRAF = null, heroBound = false;
+function initHeroNet() {
+ const cv = document.getElementById('heronet'); if (!cv) return;
+ if (heroRAF) cancelAnimationFrame(heroRAF);
+ const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let x, W, H, nodes, links, pulses, tick = 0;
+ function fit() { const p = cv.parentElement; const dpr = Math.min(devicePixelRatio || 1, 2); cv.width = Math.max(1, p.clientWidth * dpr); cv.height = Math.max(1, p.clientHeight * dpr); x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); W = p.clientWidth; H = p.clientHeight; }
+ function pos(n) { return { x: n.gx + Math.sin(tick * .02 + n.ph) * n.amp, y: n.gy + Math.cos(tick * .02 + n.ph * 1.3) * n.amp }; }
+ function build() {
+  fit(); tick = 0; pulses = [];
+  const cols = Math.max(4, Math.round(W / 120)), rows = Math.max(3, Math.round(H / 110));
+  const cw = W / (cols + 1), ch = H / (rows + 1); nodes = []; const idx = {};
+  for (let r = 1; r <= rows; r++) for (let c = 1; c <= cols; c++) { const sq = Math.random() < .4; const n = { gx: c * cw, gy: r * ch, c, r, ph: Math.random() * 6.28, amp: 4 + Math.random() * 6, type: sq ? 'sq' : (Math.random() * HERO_ICONS.length) | 0, size: sq ? 16 : 30 }; idx[c + ',' + r] = n; nodes.push(n); }
+  links = []; for (const n of nodes) { const R = idx[(n.c + 1) + ',' + n.r], D = idx[n.c + ',' + (n.r + 1)]; if (R && Math.random() < .82) links.push([n, R]); if (D && Math.random() < .55) links.push([n, D]); }
+ }
+ function pnt(px, py, n) { const g = .6 + .4 * Math.sin(tick * .045 + n.ph); if (n.type === 'sq') { const s = n.size; x.save(); x.shadowColor = '#dc1915'; x.shadowBlur = 18 * g; x.fillStyle = '#dc1915'; x.fillRect(px - s / 2, py - s / 2, s, s); x.restore(); } else { const img = heroImgs[n.type], s = n.size; if (img && img.complete && img.naturalWidth) { x.save(); x.shadowColor = 'rgba(255,225,170,.85)'; x.shadowBlur = 12 * g; x.globalAlpha = .96; x.drawImage(img, px - s / 2, py - s / 2, s, s); x.restore(); } else { x.fillStyle = '#8aa0ff'; x.beginPath(); x.arc(px, py, 3, 0, 7); x.fill(); } } }
+ function draw() {
+  x.clearRect(0, 0, W, H);
+  x.globalAlpha = .3; x.strokeStyle = '#6b7cd0'; x.lineWidth = 1;
+  for (const [a, b] of links) { const pa = pos(a), pb = pos(b); x.beginPath(); x.moveTo(pa.x, pa.y); x.lineTo(pb.x, pb.y); x.stroke(); }
+  x.globalAlpha = 1;
+  if (!reduce && links.length && tick % 3 === 0) { const lk = links[(Math.random() * links.length) | 0]; pulses.push({ a: lk[0], b: lk[1], t: 0, sp: .025 + Math.random() * .02, c: Math.random() < .55 ? '#ff7a45' : '#e6b23a' }); }
+  for (let p = pulses.length - 1; p >= 0; p--) { const pu = pulses[p]; pu.t += pu.sp; if (pu.t >= 1) { pulses.splice(p, 1); continue; } const pa = pos(pu.a), pb = pos(pu.b), px = pa.x + (pb.x - pa.x) * pu.t, py = pa.y + (pb.y - pa.y) * pu.t; x.fillStyle = pu.c; x.shadowColor = pu.c; x.shadowBlur = 12; x.beginPath(); x.arc(px, py, 2.4, 0, 7); x.fill(); }
+  x.shadowBlur = 0; for (const n of nodes) { const p = pos(n); pnt(p.x, p.y, n); }
+ }
+ function frame() { tick++; draw(); heroRAF = requestAnimationFrame(frame); }
+ function go() { if (!cv.parentElement || cv.parentElement.clientWidth < 10) { requestAnimationFrame(go); return; } build(); if (reduce) { draw(); } else { frame(); } }
+ go();
+ if (!heroBound) { heroBound = true; let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (document.getElementById('heronet')) build(); }, 200); }); }
 }
 function calcROI() {
  const h = +(document.getElementById('roiHours') || {}).value || 0;
